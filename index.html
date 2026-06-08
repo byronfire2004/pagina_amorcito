@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Para mi Isipanchi 💕</title>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet" />
+  <!-- fuentes bonitas que encontre en google fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet">
   <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+    /* reset basico */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* colores principales, los fui cambiando hasta que me gustaron */
     :root {
       --rosa: #c8556a;
       --rosa-claro: #f7dde3;
       --dorado: #b8922a;
-      --dorado-claro: #f5e9cc;
       --crema: #fdf8f0;
       --texto: #3a2a2a;
-      --texto-suave: #7a5a5a;
+      --gris-suave: #7a5a5a;
     }
 
     html { scroll-behavior: smooth; }
@@ -28,8 +31,8 @@
       overflow-x: hidden;
     }
 
-    /* ── PÉTALOS FLOTANTES ── */
-    .petals-canvas {
+    /* los petalos que caen, me tarde un rato en esto jaja */
+    .contenedor-petalos {
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
@@ -37,20 +40,20 @@
       z-index: 0;
       overflow: hidden;
     }
-    .petal {
+    .petalo {
       position: absolute;
       top: -40px;
       font-size: 18px;
-      animation: fall linear infinite;
+      animation: caer linear infinite;
       opacity: 0.55;
     }
-    @keyframes fall {
+    @keyframes caer {
       0%   { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0.55; }
       100% { transform: translateY(110vh) rotate(360deg) translateX(60px); opacity: 0; }
     }
 
-    /* ── HERO ── */
-    .hero {
+    /* seccion principal, la primera que se ve */
+    .inicio {
       position: relative;
       z-index: 1;
       min-height: 100vh;
@@ -63,7 +66,7 @@
       background: radial-gradient(ellipse at 50% 30%, #fce8ee 0%, var(--crema) 70%);
     }
 
-    .decorative-line {
+    .linea-deco {
       display: flex;
       align-items: center;
       gap: 12px;
@@ -73,8 +76,8 @@
       letter-spacing: 0.35em;
       text-transform: uppercase;
     }
-    .decorative-line::before,
-    .decorative-line::after {
+    .linea-deco::before,
+    .linea-deco::after {
       content: '';
       flex: 1;
       height: 1px;
@@ -82,8 +85,7 @@
       width: 60px;
     }
 
-    .hero-subtitle {
-      font-family: 'Cormorant Garamond', serif;
+    .subtitulo-inicio {
       font-style: italic;
       font-size: 1.15rem;
       color: var(--rosa);
@@ -91,7 +93,7 @@
       margin-bottom: 0.6rem;
     }
 
-    .hero-title {
+    .nombre-grande {
       font-family: 'Playfair Display', serif;
       font-size: clamp(3.5rem, 10vw, 6.5rem);
       font-weight: 600;
@@ -101,20 +103,21 @@
       margin-bottom: 1rem;
     }
 
-    .hero-title span {
+    .nombre-grande span {
       color: var(--rosa);
       font-style: italic;
     }
 
-    .hero-tagline {
+    .frase-inicio {
       font-size: 1.3rem;
-      color: var(--texto-suave);
+      color: var(--gris-suave);
       font-style: italic;
       margin-bottom: 3rem;
       max-width: 500px;
     }
 
-    .scroll-hint {
+    /* flecha pa que scrolleen */
+    .bajar {
       position: absolute;
       bottom: 2.5rem;
       left: 50%;
@@ -127,18 +130,15 @@
       font-size: 0.75rem;
       letter-spacing: 0.2em;
       text-transform: uppercase;
-      animation: bounce 2s ease-in-out infinite;
+      animation: rebote 2s ease-in-out infinite;
     }
-    .scroll-hint::after {
-      content: '↓';
-      font-size: 1rem;
-    }
-    @keyframes bounce {
+    .bajar::after { content: '↓'; font-size: 1rem; }
+    @keyframes rebote {
       0%, 100% { transform: translateX(-50%) translateY(0); }
-      50% { transform: translateX(-50%) translateY(6px); }
+      50%       { transform: translateX(-50%) translateY(6px); }
     }
 
-    /* ── SECCIONES COMUNES ── */
+    /* secciones en general */
     section {
       position: relative;
       z-index: 1;
@@ -147,7 +147,7 @@
       margin: 0 auto;
     }
 
-    .section-label {
+    .etiqueta {
       text-align: center;
       font-size: 0.72rem;
       letter-spacing: 0.4em;
@@ -156,17 +156,16 @@
       margin-bottom: 0.6rem;
     }
 
-    .section-title {
+    .titulo-seccion {
       font-family: 'Playfair Display', serif;
       font-size: 2.4rem;
       text-align: center;
       color: var(--texto);
       margin-bottom: 2.5rem;
     }
+    .titulo-seccion em { color: var(--rosa); font-style: italic; }
 
-    .section-title em { color: var(--rosa); font-style: italic; }
-
-    .divider {
+    .separador {
       text-align: center;
       color: var(--rosa);
       font-size: 1.5rem;
@@ -175,7 +174,7 @@
       opacity: 0.5;
     }
 
-    /* ── CARTA DE AMOR ── */
+    /* la carta de amor, la parte mas importante */
     .carta {
       background: #fff;
       border: 1px solid #e8d5d8;
@@ -212,14 +211,14 @@
       margin-top: 1.5rem;
     }
 
-    /* ── GALERÍA ── */
-    .galeria-grid {
+    /* galeria de fotos */
+    .galeria {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       gap: 14px;
     }
 
-    .foto-card {
+    .foto {
       background: var(--rosa-claro);
       border-radius: 2px;
       border: 1px solid #ddc5c9;
@@ -228,38 +227,38 @@
       height: 220px;
     }
 
-    .foto-card:hover {
+    .foto:hover {
       transform: scale(1.03) rotate(-0.5deg);
       box-shadow: 0 8px 30px rgba(200,85,106,0.15);
     }
 
-    .foto-card.grande {
+    /* la foto grande ocupa 2 columnas */
+    .foto.principal {
       grid-column: span 2;
       height: 300px;
     }
 
-    .foto-card img {
+    .foto img {
       width: 100%;
       height: 100%;
       object-fit: cover;
       object-position: center top;
       display: block;
-      border-radius: 2px;
     }
 
-    /* ── CUENTA REGRESIVA ── */
-    .countdown-section {
+    /* cuenta regresiva para su cumple!! */
+    .cumple-section {
       background: linear-gradient(135deg, #3a1a22 0%, #5a2535 100%);
       max-width: 100%;
       padding: 5rem 2rem;
       text-align: center;
     }
 
-    .countdown-section .section-label { color: #d4a0aa; }
-    .countdown-section .section-title { color: #fdf0f2; }
-    .countdown-section .section-title em { color: #e8929e; }
+    .cumple-section .etiqueta { color: #d4a0aa; }
+    .cumple-section .titulo-seccion { color: #fdf0f2; }
+    .cumple-section .titulo-seccion em { color: #e8929e; }
 
-    .countdown-grid {
+    .numeros-cumple {
       display: flex;
       justify-content: center;
       gap: 2rem;
@@ -267,14 +266,14 @@
       margin-top: 2.5rem;
     }
 
-    .count-block {
+    .bloque-numero {
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 6px;
     }
 
-    .count-number {
+    .numero {
       font-family: 'Playfair Display', serif;
       font-size: clamp(3rem, 8vw, 5rem);
       font-weight: 600;
@@ -284,14 +283,14 @@
       text-align: center;
     }
 
-    .count-label {
+    .nombre-numero {
       font-size: 0.7rem;
       letter-spacing: 0.3em;
       text-transform: uppercase;
       color: #c9909a;
     }
 
-    .count-sep {
+    .dos-puntos {
       font-family: 'Playfair Display', serif;
       font-size: 3rem;
       color: #7a4050;
@@ -299,91 +298,92 @@
       padding-top: 0.5rem;
     }
 
-    .birthday-msg {
+    .mensaje-cumple {
       margin-top: 2.5rem;
       font-size: 1.1rem;
       color: #d4a0aa;
       font-style: italic;
     }
+    .mensaje-cumple strong { color: #f0c0ca; }
 
-    .birthday-msg strong { color: #f0c0ca; }
-
-    /* ── FOOTER ── */
     footer {
       text-align: center;
       padding: 3rem 2rem;
-      color: var(--texto-suave);
+      color: var(--gris-suave);
       font-size: 0.9rem;
       font-style: italic;
       position: relative;
       z-index: 1;
     }
+    .corazones { color: var(--rosa); letter-spacing: 0.4rem; font-size: 1.2rem; margin-bottom: 0.5rem; }
 
-    footer .hearts { color: var(--rosa); letter-spacing: 0.4rem; font-size: 1.2rem; margin-bottom: 0.5rem; }
-
-    /* ── RESPONSIVE ── */
+    /* responsive pa el celu */
     @media (max-width: 600px) {
-      .hero { padding: 3rem 1.2rem; }
-      .hero-title { font-size: 3.2rem; }
-      .hero-tagline { font-size: 1.05rem; }
+      .inicio { padding: 3rem 1.2rem; }
+      .nombre-grande { font-size: 3.2rem; }
+      .frase-inicio { font-size: 1.05rem; }
 
       section { padding: 3rem 1.2rem; }
-      .section-title { font-size: 1.8rem; }
+      .titulo-seccion { font-size: 1.8rem; }
 
       .carta { padding: 1.8rem 1.2rem; }
       .carta p { font-size: 1.05rem; line-height: 1.85; }
       .carta::before { font-size: 3.5rem; }
 
-      .galeria-grid { grid-template-columns: 1fr; gap: 12px; }
-      .foto-card { height: 260px; }
-      .foto-card.grande { grid-column: span 1; height: 300px; }
+      /* en celu las fotos van una por una, mas grandes */
+      .galeria { grid-template-columns: 1fr; gap: 12px; }
+      .foto { height: 260px; }
+      .foto.principal { grid-column: span 1; height: 300px; }
 
-      .countdown-section { padding: 3.5rem 1.2rem; }
-      .countdown-grid { gap: 0.8rem; }
-      .count-number { font-size: 2.4rem; min-width: 55px; }
-      .count-sep { font-size: 2rem; padding-top: 0.3rem; }
-      .count-label { font-size: 0.6rem; }
-      .birthday-msg { font-size: 0.95rem; }
+      .cumple-section { padding: 3.5rem 1.2rem; }
+      .numeros-cumple { gap: 0.8rem; }
+      .numero { font-size: 2.4rem; min-width: 55px; }
+      .dos-puntos { font-size: 2rem; padding-top: 0.3rem; }
+      .nombre-numero { font-size: 0.6rem; }
+      .mensaje-cumple { font-size: 0.95rem; }
 
       footer { padding: 2rem 1.2rem; }
     }
 
     @media (max-width: 380px) {
-      .hero-title { font-size: 2.5rem; }
-      .count-sep { display: none; }
-      .count-number { font-size: 2rem; min-width: 45px; }
+      .nombre-grande { font-size: 2.5rem; }
+      .dos-puntos { display: none; }
+      .numero { font-size: 2rem; min-width: 45px; }
     }
+
   </style>
 </head>
 <body>
 
-  <!-- PANTALLA DE ACCESO -->
-  <div id="lock-screen" style="position:fixed;inset:0;z-index:9999;background:radial-gradient(ellipse at 50% 30%,#fce8ee 0%,#fdf8f0 70%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.2rem;padding:2rem;">
+  <!-- pantalla de acceso, solo para mi isipanchi -->
+  <div id="pantalla-acceso" style="position:fixed;inset:0;z-index:9999;background:radial-gradient(ellipse at 50% 30%,#fce8ee 0%,#fdf8f0 70%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.2rem;padding:2rem;">
     <div style="font-size:2.5rem">🌹</div>
-    <h2 style="font-family:Playfair Display,serif;font-size:2rem;color:#3a2a2a;text-align:center;">Acceso privado</h2>
-    <p style="font-family:Cormorant Garamond,serif;font-style:italic;font-size:1.1rem;color:#7a5a5a;text-align:center;">Solo para personas muy especiales</p>
-    <input id="lock-input" type="password" placeholder="••••••" maxlength="20" onkeydown="if(event.key==='Enter') checkPassword()" style="font-size:1.4rem;letter-spacing:0.4em;text-align:center;border:none;border-bottom:2px solid #c8556a;background:transparent;color:#3a2a2a;padding:0.5rem 1rem;width:200px;outline:none;" />
-    <div id="lock-error" style="color:#c8556a;font-style:italic;font-size:0.95rem;min-height:1.2rem;text-align:center;font-family:Cormorant Garamond,serif;"></div>
-    <button onclick="checkPassword()" style="background:#c8556a;color:#fff;border:none;padding:0.7rem 2.5rem;font-family:Cormorant Garamond,serif;font-size:1.1rem;letter-spacing:0.15em;cursor:pointer;border-radius:2px;">Entrar</button>
+    <h2 style="font-family:'Playfair Display',serif;font-size:2rem;color:#3a2a2a;text-align:center;">Sitio privado</h2>
+    <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-size:1.1rem;color:#7a5a5a;text-align:center;">Solo para personas muy especiales</p>
+    <input id="campo-clave" type="password" placeholder="••••••" maxlength="20"
+      onkeydown="if(event.key==='Enter') verificarClave()"
+      style="font-size:1.4rem;letter-spacing:0.4em;text-align:center;border:none;border-bottom:2px solid #c8556a;background:transparent;color:#3a2a2a;padding:0.5rem 1rem;width:200px;outline:none;" />
+    <div id="mensaje-error" style="color:#c8556a;font-style:italic;font-size:0.95rem;min-height:1.2rem;text-align:center;font-family:'Cormorant Garamond',serif;"></div>
+    <button onclick="verificarClave()" style="background:#c8556a;color:#fff;border:none;padding:0.7rem 2.5rem;font-family:'Cormorant Garamond',serif;font-size:1.1rem;letter-spacing:0.15em;cursor:pointer;border-radius:2px;">Entrar</button>
   </div>
 
-  <!-- Pétalos flotantes -->
-  <div class="petals-canvas" id="petals"></div>
+  <!-- petalos de fondo -->
+  <div class="contenedor-petalos" id="petalos"></div>
 
-  <!-- HERO -->
-  <div class="hero">
-    <div class="decorative-line">con todo mi amor</div>
-    <p class="hero-subtitle">para mi</p>
-    <h1 class="hero-title">Isidora<br><span>Sáez</span></h1>
-    <p class="hero-tagline">mi isipanchi, mi lugar favorito en el mundo</p>
-    <div class="scroll-hint">descubre</div>
+  <!-- pantalla principal -->
+  <div class="inicio">
+    <div class="linea-deco">con todo mi amor</div>
+    <p class="subtitulo-inicio">para mi</p>
+    <h1 class="nombre-grande">Isidora<br><span>Sáez</span></h1>
+    <p class="frase-inicio">mi isipanchi, mi lugar favorito en el mundo</p>
+    <div class="bajar">descubre</div>
   </div>
 
-  <!-- CARTA -->
+  <!-- carta -->
   <section>
-    <p class="section-label">palabras del corazón</p>
-    <h2 class="section-title">Una carta para <em>ti</em></h2>
-    <div class="divider">✦ ✦ ✦</div>
+    <p class="etiqueta">palabras del corazón</p>
+    <h2 class="titulo-seccion">Una carta para <em>ti</em></h2>
+    <div class="separador">✦ ✦ ✦</div>
     <div class="carta">
       <p>
         Hay personas que llegan a tu vida y la transforman por completo, que hacen que todo lo que existía antes de ellas se sienta gris en comparación. Tú eres esa persona para mí, Isidora.
@@ -398,138 +398,133 @@
     </div>
   </section>
 
-  <!-- GALERÍA -->
+  <!-- galeria de fotos nuestras -->
   <section>
-    <p class="section-label">nuestros momentos</p>
-    <h2 class="section-title">Nuestras <em>fotos</em></h2>
-    <div class="divider">✦ ✦ ✦</div>
-    <div class="galeria-grid" id="gallery">
-      <div class="foto-card grande">
-        <img src="assets/img/amorcito 1.jpeg" alt="amorcito" />
+    <p class="etiqueta">nuestros momentos</p>
+    <h2 class="titulo-seccion">Nuestras <em>fotos</em></h2>
+    <div class="separador">✦ ✦ ✦</div>
+    <div class="galeria">
+      <div class="foto principal">
+        <img src="assets/img/amorcito 1.jpeg" alt="nosotros">
       </div>
-      <div class="foto-card">
-        <img src="assets/img/amorcito 2.jpeg" alt="amorcito" />
+      <div class="foto">
+        <img src="assets/img/amorcito 2.jpeg" alt="nosotros">
       </div>
-      <div class="foto-card">
-        <img src="assets/img/amorcito 3.jpeg" alt="amorcito" />
+      <div class="foto">
+        <img src="assets/img/amorcito 3.jpeg" alt="nosotros">
       </div>
-      <div class="foto-card">
-        <img src="assets/img/amorcito 5.jpeg" alt="amorcito" />
+      <div class="foto">
+        <img src="assets/img/amorcito 5.jpeg" alt="nosotros">
       </div>
-      <div class="foto-card">
-        <img src="assets/img/amorcito 6.jpeg" alt="amorcito" />
+      <div class="foto">
+        <img src="assets/img/amorcito 6.jpeg" alt="nosotros">
       </div>
-      <div class="foto-card">
-        <img src="assets/img/amorcito 8.jpeg" alt="amorcito" />
+      <div class="foto">
+        <img src="assets/img/amorcito 8.jpeg" alt="nosotros">
       </div>
     </div>
   </section>
 
-  <!-- CUENTA REGRESIVA -->
-  <div class="countdown-section">
-    <p class="section-label">el día más especial</p>
-    <h2 class="section-title" style="color:#fdf0f2;">Faltan para tu <em>cumpleaños</em></h2>
-    <div class="countdown-grid">
-      <div class="count-block">
-        <div class="count-number" id="cd-days">--</div>
-        <div class="count-label">días</div>
+  <!-- cuenta regresiva pa su cumple :) -->
+  <div class="cumple-section">
+    <p class="etiqueta">el día más especial</p>
+    <h2 class="titulo-seccion">Faltan para tu <em>cumpleaños</em></h2>
+    <div class="numeros-cumple">
+      <div class="bloque-numero">
+        <div class="numero" id="dias">--</div>
+        <div class="nombre-numero">días</div>
       </div>
-      <div class="count-sep">:</div>
-      <div class="count-block">
-        <div class="count-number" id="cd-hours">--</div>
-        <div class="count-label">horas</div>
+      <div class="dos-puntos">:</div>
+      <div class="bloque-numero">
+        <div class="numero" id="horas">--</div>
+        <div class="nombre-numero">horas</div>
       </div>
-      <div class="count-sep">:</div>
-      <div class="count-block">
-        <div class="count-number" id="cd-mins">--</div>
-        <div class="count-label">minutos</div>
+      <div class="dos-puntos">:</div>
+      <div class="bloque-numero">
+        <div class="numero" id="minutos">--</div>
+        <div class="nombre-numero">minutos</div>
       </div>
-      <div class="count-sep">:</div>
-      <div class="count-block">
-        <div class="count-number" id="cd-secs">--</div>
-        <div class="count-label">segundos</div>
+      <div class="dos-puntos">:</div>
+      <div class="bloque-numero">
+        <div class="numero" id="segundos">--</div>
+        <div class="nombre-numero">segundos</div>
       </div>
     </div>
-    <p class="birthday-msg">El <strong>10 de septiembre</strong> se celebra a la persona más especial del mundo 🎂</p>
+    <p class="mensaje-cumple">El <strong>10 de septiembre</strong> se celebra a la persona más especial del mundo 🎂</p>
   </div>
 
-  <!-- FOOTER -->
+  <!-- pie de pagina -->
   <footer>
-    <div class="hearts">♥ ♥ ♥</div>
+    <div class="corazones">♥ ♥ ♥</div>
     <p>Hecho con todo el amor del mundo para Isidora Sáez</p>
     <p style="margin-top:0.4rem; font-size:0.8rem; opacity:0.6;">mi isipanchi para siempre 🌹</p>
   </footer>
 
   <script>
-    // ── PÉTALOS ──
-    const canvas = document.getElementById('petals');
-    const petalEmojis = ['🌸', '🌺', '✿', '❀', '🌷'];
-    for (let i = 0; i < 18; i++) {
-      const p = document.createElement('div');
-      p.className = 'petal';
-      p.textContent = petalEmojis[Math.floor(Math.random() * petalEmojis.length)];
-      p.style.left = Math.random() * 100 + 'vw';
-      p.style.animationDuration = (6 + Math.random() * 10) + 's';
-      p.style.animationDelay = (Math.random() * 12) + 's';
-      p.style.fontSize = (12 + Math.random() * 14) + 'px';
-      canvas.appendChild(p);
+
+    // petalos cayendo de fondo
+    var contenedor = document.getElementById('petalos')
+    var tipos = ['🌸', '🌺', '✿', '❀', '🌷']
+    for (var i = 0; i < 18; i++) {
+      var p = document.createElement('div')
+      p.className = 'petalo'
+      p.textContent = tipos[Math.floor(Math.random() * tipos.length)]
+      p.style.left = Math.random() * 100 + 'vw'
+      p.style.animationDuration = (6 + Math.random() * 10) + 's'
+      p.style.animationDelay = (Math.random() * 12) + 's'
+      p.style.fontSize = (12 + Math.random() * 14) + 'px'
+      contenedor.appendChild(p)
     }
 
-    // ── FOTOS ──
-    function loadPhoto(input, idx) {
-      const file = input.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = e => {
-        const card = document.getElementById('card-' + idx);
-        card.querySelectorAll('.foto-icon, .foto-label').forEach(el => el.style.display = 'none');
-        const img = document.createElement('img');
-        img.src = e.target.result;
-        card.prepend(img);
-      };
-      reader.readAsDataURL(file);
+    // cuenta regresiva para el cumple de isi (10 sep)
+    function actualizarCuentaRegresiva() {
+      var ahora = new Date()
+      var cumple = new Date(ahora.getFullYear(), 8, 10) // septiembre = mes 8
+      if (ahora >= cumple) cumple = new Date(ahora.getFullYear() + 1, 8, 10)
+      var diferencia = cumple - ahora
+
+      var d = Math.floor(diferencia / 86400000)
+      var h = Math.floor((diferencia % 86400000) / 3600000)
+      var m = Math.floor((diferencia % 3600000) / 60000)
+      var s = Math.floor((diferencia % 60000) / 1000)
+
+      document.getElementById('dias').textContent     = String(d).padStart(2, '0')
+      document.getElementById('horas').textContent    = String(h).padStart(2, '0')
+      document.getElementById('minutos').textContent  = String(m).padStart(2, '0')
+      document.getElementById('segundos').textContent = String(s).padStart(2, '0')
     }
 
-    // ── CUENTA REGRESIVA ──
-    function updateCountdown() {
-      const now = new Date();
-      let target = new Date(now.getFullYear(), 8, 10); // Sept 10
-      if (now >= target) target = new Date(now.getFullYear() + 1, 8, 10);
-      const diff = target - now;
-      const d = Math.floor(diff / 86400000);
-      const h = Math.floor((diff % 86400000) / 3600000);
-      const m = Math.floor((diff % 3600000) / 60000);
-      const s = Math.floor((diff % 60000) / 1000);
-      document.getElementById('cd-days').textContent  = String(d).padStart(2, '0');
-      document.getElementById('cd-hours').textContent = String(h).padStart(2, '0');
-      document.getElementById('cd-mins').textContent  = String(m).padStart(2, '0');
-      document.getElementById('cd-secs').textContent  = String(s).padStart(2, '0');
-    }
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
+    actualizarCuentaRegresiva()
+    setInterval(actualizarCuentaRegresiva, 1000)
 
-    // -- CONTRASENA --
-    async function sha256(msg) {
-      const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(msg));
-      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,"0")).join("");
+    // verificacion de clave con sha256 pa que nadie la vea en el codigo
+    async function hashear(texto) {
+      var buffer = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(texto))
+      return Array.from(new Uint8Array(buffer)).map(function(b) {
+        return b.toString(16).padStart(2, '0')
+      }).join('')
     }
-    async function checkPassword() {
-      const val = document.getElementById("lock-input").value;
-      const hashInput = await sha256(val);
-      const hashCorrect = await sha256("230226");
-      if (hashInput === hashCorrect) {
-        document.getElementById("lock-screen").style.display = "none";
-        sessionStorage.setItem("auth","1");
+
+    async function verificarClave() {
+      var ingresado = document.getElementById('campo-clave').value
+      var hashIngresado = await hashear(ingresado)
+      var hashCorrecto  = await hashear('230226')
+
+      if (hashIngresado === hashCorrecto) {
+        document.getElementById('pantalla-acceso').style.display = 'none'
+        sessionStorage.setItem('acceso', 'ok')
       } else {
-        const err = document.getElementById("lock-error");
-        err.textContent = "Contrasena incorrecta, intentalo de nuevo 🌹";
-        document.getElementById("lock-input").value = "";
-        document.getElementById("lock-input").focus();
+        document.getElementById('mensaje-error').textContent = 'Contraseña incorrecta, inténtalo de nuevo 🌹'
+        document.getElementById('campo-clave').value = ''
+        document.getElementById('campo-clave').focus()
       }
     }
-    if (sessionStorage.getItem("auth") === "1") {
-      document.getElementById("lock-screen").style.display = "none";
+
+    // si ya entro antes no le pido clave de nuevo
+    if (sessionStorage.getItem('acceso') === 'ok') {
+      document.getElementById('pantalla-acceso').style.display = 'none'
     }
+
   </script>
 </body>
 </html>
