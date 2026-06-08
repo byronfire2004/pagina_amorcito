@@ -357,6 +357,16 @@
 </head>
 <body>
 
+  <!-- PANTALLA DE ACCESO -->
+  <div id="lock-screen" style="position:fixed;inset:0;z-index:9999;background:radial-gradient(ellipse at 50% 30%,#fce8ee 0%,#fdf8f0 70%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.2rem;padding:2rem;">
+    <div style="font-size:2.5rem">🌹</div>
+    <h2 style="font-family:Playfair Display,serif;font-size:2rem;color:#3a2a2a;text-align:center;">Acceso privado</h2>
+    <p style="font-family:Cormorant Garamond,serif;font-style:italic;font-size:1.1rem;color:#7a5a5a;text-align:center;">Solo para personas muy especiales</p>
+    <input id="lock-input" type="password" placeholder="••••••" maxlength="20" onkeydown="if(event.key==='Enter') checkPassword()" style="font-size:1.4rem;letter-spacing:0.4em;text-align:center;border:none;border-bottom:2px solid #c8556a;background:transparent;color:#3a2a2a;padding:0.5rem 1rem;width:200px;outline:none;" />
+    <div id="lock-error" style="color:#c8556a;font-style:italic;font-size:0.95rem;min-height:1.2rem;text-align:center;font-family:Cormorant Garamond,serif;"></div>
+    <button onclick="checkPassword()" style="background:#c8556a;color:#fff;border:none;padding:0.7rem 2.5rem;font-family:Cormorant Garamond,serif;font-size:1.1rem;letter-spacing:0.15em;cursor:pointer;border-radius:2px;">Entrar</button>
+  </div>
+
   <!-- Pétalos flotantes -->
   <div class="petals-canvas" id="petals"></div>
 
@@ -497,6 +507,29 @@
     }
     updateCountdown();
     setInterval(updateCountdown, 1000);
+
+    // -- CONTRASENA --
+    async function sha256(msg) {
+      const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(msg));
+      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,"0")).join("");
+    }
+    async function checkPassword() {
+      const val = document.getElementById("lock-input").value;
+      const hashInput = await sha256(val);
+      const hashCorrect = await sha256("230226");
+      if (hashInput === hashCorrect) {
+        document.getElementById("lock-screen").style.display = "none";
+        sessionStorage.setItem("auth","1");
+      } else {
+        const err = document.getElementById("lock-error");
+        err.textContent = "Contrasena incorrecta, intentalo de nuevo 🌹";
+        document.getElementById("lock-input").value = "";
+        document.getElementById("lock-input").focus();
+      }
+    }
+    if (sessionStorage.getItem("auth") === "1") {
+      document.getElementById("lock-screen").style.display = "none";
+    }
   </script>
 </body>
 </html>
