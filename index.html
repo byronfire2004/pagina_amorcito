@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Para mi Isipanchi 💕</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --rosa: #c8556a;
+      --rosa-claro: #f7dde3;
+      --dorado: #b8922a;
+      --dorado-claro: #f5e9cc;
+      --crema: #fdf8f0;
+      --texto: #3a2a2a;
+      --texto-suave: #7a5a5a;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Cormorant Garamond', serif;
+      background: var(--crema);
+      color: var(--texto);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* ── PÉTALOS FLOTANTES ── */
+    .petals-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+    .petal {
+      position: absolute;
+      top: -40px;
+      font-size: 18px;
+      animation: fall linear infinite;
+      opacity: 0.55;
+    }
+    @keyframes fall {
+      0%   { transform: translateY(0) rotate(0deg) translateX(0); opacity: 0.55; }
+      100% { transform: translateY(110vh) rotate(360deg) translateX(60px); opacity: 0; }
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      z-index: 1;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 4rem 2rem;
+      background: radial-gradient(ellipse at 50% 30%, #fce8ee 0%, var(--crema) 70%);
+    }
+
+    .decorative-line {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 1.5rem;
+      color: var(--dorado);
+      font-size: 13px;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+    }
+    .decorative-line::before,
+    .decorative-line::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(to right, transparent, var(--dorado), transparent);
+      width: 60px;
+    }
+
+    .hero-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 1.15rem;
+      color: var(--rosa);
+      letter-spacing: 0.1em;
+      margin-bottom: 0.6rem;
+    }
+
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.5rem, 10vw, 6.5rem);
+      font-weight: 600;
+      line-height: 1.05;
+      color: var(--texto);
+      letter-spacing: -0.02em;
+      margin-bottom: 1rem;
+    }
+
+    .hero-title span {
+      color: var(--rosa);
+      font-style: italic;
+    }
+
+    .hero-tagline {
+      font-size: 1.3rem;
+      color: var(--texto-suave);
+      font-style: italic;
+      margin-bottom: 3rem;
+      max-width: 500px;
+    }
+
+    .scroll-hint {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: var(--dorado);
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      animation: bounce 2s ease-in-out infinite;
+    }
+    .scroll-hint::after {
+      content: '↓';
+      font-size: 1rem;
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(6px); }
+    }
+
+    /* ── SECCIONES COMUNES ── */
+    section {
+      position: relative;
+      z-index: 1;
+      padding: 5rem 2rem;
+      max-width: 760px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      text-align: center;
+      font-size: 0.72rem;
+      letter-spacing: 0.4em;
+      text-transform: uppercase;
+      color: var(--dorado);
+      margin-bottom: 0.6rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      text-align: center;
+      color: var(--texto);
+      margin-bottom: 2.5rem;
+    }
+
+    .section-title em { color: var(--rosa); font-style: italic; }
+
+    .divider {
+      text-align: center;
+      color: var(--rosa);
+      font-size: 1.5rem;
+      letter-spacing: 0.5rem;
+      margin: 1.5rem 0 3rem;
+      opacity: 0.5;
+    }
+
+    /* ── CARTA DE AMOR ── */
+    .carta {
+      background: #fff;
+      border: 1px solid #e8d5d8;
+      border-radius: 2px;
+      padding: 3rem 3.5rem;
+      position: relative;
+      box-shadow: 0 2px 40px rgba(200,85,106,0.06);
+    }
+
+    .carta::before {
+      content: '❝';
+      font-family: 'Playfair Display', serif;
+      font-size: 5rem;
+      color: var(--rosa-claro);
+      position: absolute;
+      top: 0.5rem;
+      left: 1.5rem;
+      line-height: 1;
+    }
+
+    .carta p {
+      font-size: 1.2rem;
+      line-height: 2;
+      color: var(--texto);
+      font-style: italic;
+      margin-bottom: 1.2rem;
+    }
+
+    .firma {
+      text-align: right;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      color: var(--rosa);
+      margin-top: 1.5rem;
+    }
+
+    /* ── GALERÍA ── */
+    .galeria-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+
+    .foto-card {
+      background: var(--rosa-claro);
+      border-radius: 2px;
+      border: 1px solid #ddc5c9;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      height: 220px;
+    }
+
+    .foto-card:hover {
+      transform: scale(1.03) rotate(-0.5deg);
+      box-shadow: 0 8px 30px rgba(200,85,106,0.15);
+    }
+
+    .foto-card.grande {
+      grid-column: span 2;
+      height: 300px;
+    }
+
+    .foto-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      border-radius: 2px;
+    }
+
+    /* ── CUENTA REGRESIVA ── */
+    .countdown-section {
+      background: linear-gradient(135deg, #3a1a22 0%, #5a2535 100%);
+      max-width: 100%;
+      padding: 5rem 2rem;
+      text-align: center;
+    }
+
+    .countdown-section .section-label { color: #d4a0aa; }
+    .countdown-section .section-title { color: #fdf0f2; }
+    .countdown-section .section-title em { color: #e8929e; }
+
+    .countdown-grid {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-top: 2.5rem;
+    }
+
+    .count-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .count-number {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3rem, 8vw, 5rem);
+      font-weight: 600;
+      color: #fff;
+      line-height: 1;
+      min-width: 90px;
+      text-align: center;
+    }
+
+    .count-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: #c9909a;
+    }
+
+    .count-sep {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem;
+      color: #7a4050;
+      align-self: flex-start;
+      padding-top: 0.5rem;
+    }
+
+    .birthday-msg {
+      margin-top: 2.5rem;
+      font-size: 1.1rem;
+      color: #d4a0aa;
+      font-style: italic;
+    }
+
+    .birthday-msg strong { color: #f0c0ca; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 3rem 2rem;
+      color: var(--texto-suave);
+      font-size: 0.9rem;
+      font-style: italic;
+      position: relative;
+      z-index: 1;
+    }
+
+    footer .hearts { color: var(--rosa); letter-spacing: 0.4rem; font-size: 1.2rem; margin-bottom: 0.5rem; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .hero { padding: 3rem 1.2rem; }
+      .hero-title { font-size: 3.2rem; }
+      .hero-tagline { font-size: 1.05rem; }
+
+      section { padding: 3rem 1.2rem; }
+      .section-title { font-size: 1.8rem; }
+
+      .carta { padding: 1.8rem 1.2rem; }
+      .carta p { font-size: 1.05rem; line-height: 1.85; }
+      .carta::before { font-size: 3.5rem; }
+
+      .galeria-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+      .foto-card { height: 160px; }
+      .foto-card.grande { grid-column: span 2; height: 200px; }
+
+      .countdown-section { padding: 3.5rem 1.2rem; }
+      .countdown-grid { gap: 0.8rem; }
+      .count-number { font-size: 2.4rem; min-width: 55px; }
+      .count-sep { font-size: 2rem; padding-top: 0.3rem; }
+      .count-label { font-size: 0.6rem; }
+      .birthday-msg { font-size: 0.95rem; }
+
+      footer { padding: 2rem 1.2rem; }
+    }
+
+    @media (max-width: 380px) {
+      .hero-title { font-size: 2.5rem; }
+      .count-sep { display: none; }
+      .count-number { font-size: 2rem; min-width: 45px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Pétalos flotantes -->
+  <div class="petals-canvas" id="petals"></div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="decorative-line">con todo mi amor</div>
+    <p class="hero-subtitle">para mi</p>
+    <h1 class="hero-title">Isidora<br><span>Saes</span></h1>
+    <p class="hero-tagline">mi isipanchi, mi lugar favorito en el mundo</p>
+    <div class="scroll-hint">descubre</div>
+  </div>
+
+  <!-- CARTA -->
+  <section>
+    <p class="section-label">palabras del corazón</p>
+    <h2 class="section-title">Una carta para <em>ti</em></h2>
+    <div class="divider">✦ ✦ ✦</div>
+    <div class="carta">
+      <p>
+        Hay personas que llegan a tu vida y la transforman por completo, que hacen que todo lo que existía antes de ellas se sienta gris en comparación. Tú eres esa persona para mí, Isidora.
+      </p>
+      <p>
+        Cada día a tu lado es un regalo que no me canso de agradecer. Tu risa, tu forma de ver el mundo, la manera en que me haces sentir que todo es posible — eres tú, siempre tú.
+      </p>
+      <p>
+        Esta página es solo un pequeño reflejo de todo lo que siento y que a veces las palabras no alcanzan a decir. Eres mi favorita, mi calma, mi aventura. Te amo con todo lo que soy.
+      </p>
+      <div class="firma">Con amor eterno 🌹</div>
+    </div>
+  </section>
+
+  <!-- GALERÍA -->
+  <section>
+    <p class="section-label">nuestros momentos</p>
+    <h2 class="section-title">Nuestras <em>fotos</em></h2>
+    <div class="divider">✦ ✦ ✦</div>
+    <div class="galeria-grid" id="gallery">
+      <div class="foto-card grande">
+        <img src="assets/img/amorcito 1.jpeg" alt="amorcito" />
+      </div>
+      <div class="foto-card">
+        <img src="assets/img/amorcito 2.jpeg" alt="amorcito" />
+      </div>
+      <div class="foto-card">
+        <img src="assets/img/amorcito 3.jpeg" alt="amorcito" />
+      </div>
+      <div class="foto-card">
+        <img src="assets/img/amorcito 5.jpeg" alt="amorcito" />
+      </div>
+      <div class="foto-card">
+        <img src="assets/img/amorcito 6.jpeg" alt="amorcito" />
+      </div>
+      <div class="foto-card">
+        <img src="assets/img/amorcito 8.jpeg" alt="amorcito" />
+      </div>
+    </div>
+  </section>
+
+  <!-- CUENTA REGRESIVA -->
+  <div class="countdown-section">
+    <p class="section-label">el día más especial</p>
+    <h2 class="section-title" style="color:#fdf0f2;">Faltan para tu <em>cumpleaños</em></h2>
+    <div class="countdown-grid">
+      <div class="count-block">
+        <div class="count-number" id="cd-days">--</div>
+        <div class="count-label">días</div>
+      </div>
+      <div class="count-sep">:</div>
+      <div class="count-block">
+        <div class="count-number" id="cd-hours">--</div>
+        <div class="count-label">horas</div>
+      </div>
+      <div class="count-sep">:</div>
+      <div class="count-block">
+        <div class="count-number" id="cd-mins">--</div>
+        <div class="count-label">minutos</div>
+      </div>
+      <div class="count-sep">:</div>
+      <div class="count-block">
+        <div class="count-number" id="cd-secs">--</div>
+        <div class="count-label">segundos</div>
+      </div>
+    </div>
+    <p class="birthday-msg">El <strong>10 de septiembre</strong> se celebra a la persona más especial del mundo 🎂</p>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="hearts">♥ ♥ ♥</div>
+    <p>Hecho con todo el amor del mundo para Isidora Saes</p>
+    <p style="margin-top:0.4rem; font-size:0.8rem; opacity:0.6;">mi isipanchi para siempre 🌹</p>
+  </footer>
+
+  <script>
+    // ── PÉTALOS ──
+    const canvas = document.getElementById('petals');
+    const petalEmojis = ['🌸', '🌺', '✿', '❀', '🌷'];
+    for (let i = 0; i < 18; i++) {
+      const p = document.createElement('div');
+      p.className = 'petal';
+      p.textContent = petalEmojis[Math.floor(Math.random() * petalEmojis.length)];
+      p.style.left = Math.random() * 100 + 'vw';
+      p.style.animationDuration = (6 + Math.random() * 10) + 's';
+      p.style.animationDelay = (Math.random() * 12) + 's';
+      p.style.fontSize = (12 + Math.random() * 14) + 'px';
+      canvas.appendChild(p);
+    }
+
+    // ── FOTOS ──
+    function loadPhoto(input, idx) {
+      const file = input.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = e => {
+        const card = document.getElementById('card-' + idx);
+        card.querySelectorAll('.foto-icon, .foto-label').forEach(el => el.style.display = 'none');
+        const img = document.createElement('img');
+        img.src = e.target.result;
+        card.prepend(img);
+      };
+      reader.readAsDataURL(file);
+    }
+
+    // ── CUENTA REGRESIVA ──
+    function updateCountdown() {
+      const now = new Date();
+      let target = new Date(now.getFullYear(), 8, 10); // Sept 10
+      if (now >= target) target = new Date(now.getFullYear() + 1, 8, 10);
+      const diff = target - now;
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor((diff % 86400000) / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
+      document.getElementById('cd-days').textContent  = String(d).padStart(2, '0');
+      document.getElementById('cd-hours').textContent = String(h).padStart(2, '0');
+      document.getElementById('cd-mins').textContent  = String(m).padStart(2, '0');
+      document.getElementById('cd-secs').textContent  = String(s).padStart(2, '0');
+    }
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
